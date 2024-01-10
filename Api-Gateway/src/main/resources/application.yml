@@ -1,0 +1,25 @@
+server:
+  port: 9095
+spring:
+  application:
+    name: Api-Gateway-Ecommerce
+  cloud:
+    gateway:
+      routes:
+        - id: USERS-SERVICE
+          uri: lb://USERS-SERVICE
+          predicates:
+            - Path=/users/**
+
+        - id: PRODUCT-SERVICE
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/products/**
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default: http://localhost:8761/eureka
